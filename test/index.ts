@@ -5,7 +5,7 @@ import { ethers } from "hardhat";
 import { IERC20, Swapper } from "../typechain";
 
 describe("Test swap contract", function () {
-  let deploySwapper:any
+  let deploySwapper:Swapper
   let owner:SignerWithAddress
   let addr1:SignerWithAddress
   let addr2:SignerWithAddress
@@ -25,9 +25,24 @@ describe("Test swap contract", function () {
           deploySwapper = await swapper.deploy();
           await deploySwapper.deployed();
           [owner, addr1, addr2] = await ethers.getSigners()
+          const usdcSigner:Signer = await ethers.getSigner(usdcOwner)
+    
+          //@ts-ignore
+          await hre.network.provider.request({
+            method: "hardhat_impersonateAccount",
+            params: [usdcOwner],
+          })
           deployedUsdc = await ethers.getContractAt("IERC20",usdc)
           deployedUsdt = await ethers.getContractAt("IERC20", usdt)
           deployedcUsdt = await ethers.getContractAt("IERC20", cUSDT)
+          await deployedUsdc.connect(usdcSigner).approve(
+            deploySwapper.address,
+            "100000000000000000000000000000000000"
+          )
+          await deployedUsdt.connect(usdcSigner).approve(
+            deploySwapper.address,
+            "100000000000000000000000000000000000"
+          )
          }
     )
   });
@@ -91,7 +106,8 @@ describe("Test swap contract", function () {
     })
 
     deploySwapper.connect(usdcSigner).swapAndLend(amount,usdc,usdt,cUSDT)
-    const balance = await deployedcUsdt.balanceOf(usdcOwner)
+    console.log(deploySwapper.address);
+    const balance = await deployedUsdt.balanceOf(deploySwapper.address)
     expect(Number(balance)).to.be.greaterThanOrEqual(amount)
   });
 });
