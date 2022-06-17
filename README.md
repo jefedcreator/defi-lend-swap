@@ -1,5 +1,5 @@
 # task2
-Uniswap router v2 implementation and Compound lending  on local ethereum mainnet fork. USDC to USDT deployment script executed with hardhat, typescript and ethers.js, Lend USDT and receive cUSDT via one solidity transaction call   
+Swapping and Compound lending  on local ethereum mainnet fork. USDC to USDT deployment script executed with hardhat, typescript and ethers.js, Swap USDC to USDT and receive cUSDT via one solidity transaction call   
 
 # Advanced Sample Hardhat Project
 
