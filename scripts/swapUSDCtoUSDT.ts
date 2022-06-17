@@ -18,9 +18,9 @@ async function main() {
   // We get the contract to deploy
   const usdc = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
   const usdt = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+  const cUSDT = "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9"
   const usdtOwner = "0x05c564414e1CFD2b2bA0e2C110fab7571480cF1b"
   const usdcOwner = "0x3b15cec2d922ab0ef74688bcc1056461049f89cb"
-  const cUSDT = "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9"
   const deployedUsdc = await ethers.getContractAt("IERC20",usdc)
   const deployedUsdt = await ethers.getContractAt("IERC20", usdt)
   const lend = "0x82EdA215Fa92B45a3a76837C65Ab862b6C7564a8"

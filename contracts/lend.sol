@@ -22,7 +22,6 @@ contract Swapper{
         USDT = IUSDT(_USDT);
         cUSDT = CTokenInterface(_cErc20Contract);
         require(USDC.balanceOf(msg.sender)>= amount, "Insufficent balance");
-        require(USDT.balanceOf(address(this))>= amount, "Insufficent funds");
         USDC.transferFrom(msg.sender, address(this), amount);
         USDC.approve(UNISWAP_V2_ROUTER, amount);
         address[] memory path;
@@ -39,9 +38,10 @@ contract Swapper{
         IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens(amount, 0, path, msg.sender, block.timestamp);
         // // Approve transfer on the ERC20 contract
         USDT.approve(address(cUSDT), amount);
-        // USDT.transferFrom(msg.sender, address(this), amount);
+        USDT.transferFrom(msg.sender, address(this), amount);
         // // // Mint cTokens
-        cUSDT.mint(amount);
+        assert(cUSDT.mint(100) == 0);
+        cUSDT.redeem(cUSDT.balanceOf(address(this)));
     }
 }
     
