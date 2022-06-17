@@ -23,7 +23,7 @@ async function main() {
   const cUSDT = "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9"
   const deployedUsdc = await ethers.getContractAt("IERC20",usdc)
   const deployedUsdt = await ethers.getContractAt("IERC20", usdt)
-  const lend = "0xcE0066b1008237625dDDBE4a751827de037E53D2"
+  const lend = "0x82EdA215Fa92B45a3a76837C65Ab862b6C7564a8"
   const lendAndSwap = await ethers.getContractAt("Swapper",lend);
   // const lendAndSwap = await ethers.getContractFactory("Swapper");
   //     const greeter = await lendAndSwap.deploy();
